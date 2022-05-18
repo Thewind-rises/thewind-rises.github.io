@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>丿卟离丶的博客</title>
+  
+  <subtitle>每个人都有光明的未来</subtitle>
+  <link href="https://thewind-rises.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://thewind-rises.github.io/"/>
+  <updated>2021-09-07T08:26:38.998Z</updated>
+  <id>https://thewind-rises.github.io/</id>
+  
+  <author>
+    <name>丿卟离丶</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何在十五天内过英语四级</title>
+    <link href="https://thewind-rises.github.io/posts/15672.html"/>
+    <id>https://thewind-rises.github.io/posts/15672.html</id>
+    <published>2021-09-07T08:13:12.000Z</published>
+    <updated>2021-09-07T08:26:38.998Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;如何在十五天之内过英语四级&quot;&gt;&lt;a href=&quot;#如何在十五天之内过英语四级&quot; class=&quot;headerlink&quot; title=&quot;如何在十五天之内过英语四级&quot;&gt;&lt;/a&gt;如何在十五天之内过英语四级&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term="英语四级" scheme="https://thewind-rises.github.io/tags/%E8%8B%B1%E8%AF%AD%E5%9B%9B%E7%BA%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>博客说明书（观前必看）</title>
+    <link href="https://thewind-rises.github.io/posts/3801.html"/>
+    <id>https://thewind-rises.github.io/posts/3801.html</id>
+    <published>2021-04-14T11:37:26.000Z</published>
+    <updated>2021-04-14T13:28:26.378Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;缘由&quot;&gt;&lt;a href=&quot;#缘由&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="必看" scheme="https://thewind-rises.github.io/tags/%E5%BF%85%E7%9C%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>好耶！得到了大佬支援博客恢复啦</title>
+    <link href="https://thewind-rises.github.io/posts/42575.html"/>
+    <id>https://thewind-rises.github.io/posts/42575.html</id>
+    <published>2021-03-23T12:47:10.000Z</published>
+    <updated>2021-03-29T12:23:26.955Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;img src=&quot;https://fishbed.easy233.top/u=3763831600,2691213973&amp;fm=11&amp;gp=0.jpg&quot; alt=&quot;好耶！好耶！好耶！&quot; style=&quot;zoom:200%;&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="图床修复" scheme="https://thewind-rises.github.io/tags/%E5%9B%BE%E5%BA%8A%E4%BF%AE%E5%A4%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>悲报！图床域名被冻结了，图片全部木大</title>
+    <link href="https://thewind-rises.github.io/posts/43684.html"/>
+    <id>https://thewind-rises.github.io/posts/43684.html</id>
+    <published>2021-03-05T11:29:27.000Z</published>
+    <updated>2021-03-29T12:23:26.955Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;​   </summary>
+        
+      
+    
+    
+    
+    
+    <category term="悲报" scheme="https://thewind-rises.github.io/tags/%E6%82%B2%E6%8A%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>非硬核向-Kerberos权限认证部分细节及深入了解MS14-068</title>
+    <link href="https://thewind-rises.github.io/posts/36855.html"/>
+    <id>https://thewind-rises.github.io/posts/36855.html</id>
+    <published>2020-11-09T09:22:10.000Z</published>
+    <updated>2021-10-19T10:21:54.765Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://fishbed.easy233.top/MS14-068%20mimikatz.jpg&quot; alt=&quot;MS14-068 mimikatz&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在上篇文章（&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Kerberos" scheme="https://thewind-rises.github.io/tags/Kerberos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一张图带你了解Kerberos认证流程</title>
+    <link href="https://thewind-rises.github.io/posts/42406.html"/>
+    <id>https://thewind-rises.github.io/posts/42406.html</id>
+    <published>2020-10-30T09:50:48.000Z</published>
+    <updated>2021-03-29T12:23:26.935Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;设想一下，如果世界上只有A和B知道A的密码，他们该如何用这个密码来证明自己的身份？&lt;/p&gt;
+&lt;p&gt;在现实中我们有很多办法，但是在充满了未知和陷阱的赛博空间中很多办法是统统不能用的。因为如果一方是假的，那么A的密码就失窃了。那么如果我们要做到既不说出密码，又得让对方知道自己有</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Kerberos" scheme="https://thewind-rises.github.io/tags/Kerberos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特工A和特工B的故事—_Kerberos</title>
+    <link href="https://thewind-rises.github.io/posts/48427.html"/>
+    <id>https://thewind-rises.github.io/posts/48427.html</id>
+    <published>2020-10-23T13:00:03.000Z</published>
+    <updated>2021-03-29T12:23:26.965Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://fishbed.easy233.top/MI6.jpeg&quot; alt=&quot;MI6&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Kerberos" scheme="https://thewind-rises.github.io/tags/Kerberos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>费曼学习法</title>
+    <link href="https://thewind-rises.github.io/posts/4717.html"/>
+    <id>https://thewind-rises.github.io/posts/4717.html</id>
+    <published>2020-10-14T07:05:45.000Z</published>
+    <updated>2021-03-29T12:23:26.975Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;理查德·费曼学习法&quot;&gt;&lt;a href=&quot;#理查德·费曼学习法&quot; class=&quot;headerlink&quot; title=&quot;理查德·费曼学习法&quot;&gt;&lt;/a&gt;理查德·费曼学习法&lt;/h2&gt;&lt;h3 id=&quot;如果你不能用简单的语言来解释它，说明你没有很好地理解它。&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="费曼学习法" scheme="https://thewind-rises.github.io/tags/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机中的抽象</title>
+    <link href="https://thewind-rises.github.io/posts/18781.html"/>
+    <id>https://thewind-rises.github.io/posts/18781.html</id>
+    <published>2020-10-14T06:52:32.000Z</published>
+    <updated>2021-03-29T12:23:26.965Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;注意：此篇文章为我自己的读书笔记，里面所包含的观点可能有些偏差，而且我本人的知识储备可能并不足以讲明白这个。阅读时一定不要被我带进沟里。&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="读书笔记 《深入理解计算机系统》" scheme="https://thewind-rises.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从爬图虫入手学习多线程实战</title>
+    <link href="https://thewind-rises.github.io/posts/62062.html"/>
+    <id>https://thewind-rises.github.io/posts/62062.html</id>
+    <published>2020-10-13T12:43:59.000Z</published>
+    <updated>2021-03-29T12:23:26.945Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;《从爬虫入手学习多线程 原理分析部分》里我们对Python的多线程原理进行了分析，这次我们就直接拿一个爬虫脚本来进行实践。&lt;/p&gt;
+&lt;p&gt;上一篇的传送门： &lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Python,多线程" scheme="https://thewind-rises.github.io/tags/Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从爬图虫入手学习多线程（原理分析）</title>
+    <link href="https://thewind-rises.github.io/posts/44617.html"/>
+    <id>https://thewind-rises.github.io/posts/44617.html</id>
+    <published>2020-10-09T07:08:59.000Z</published>
+    <updated>2021-03-29T12:23:26.945Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;学Python不写爬虫和咸鱼有什么区别！！！！by：Noob_宅&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://fishbed.easy233.top/timg.jpg&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Python,多线程" scheme="https://thewind-rises.github.io/tags/Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Frp内网穿透</title>
+    <link href="https://thewind-rises.github.io/posts/27423.html"/>
+    <id>https://thewind-rises.github.io/posts/27423.html</id>
+    <published>2020-09-26T07:00:34.000Z</published>
+    <updated>2021-03-29T12:23:26.935Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;随着工具越来越多，越发感觉电脑内存不够用，但是又没办法加内存，更不可能天天背一个台式机跑来跑去（十多公斤的玩意会死人的啊！！！！！！），所以决定直接把要用到的虚拟机全部放在台式机上，然后内网穿透出去直接远程搞，想想真舒服！！！&lt;/p&gt;
+&lt;h2 id=&quot;Frp介绍&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="内网穿透" scheme="https://thewind-rises.github.io/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>和广告的抗争</title>
+    <link href="https://thewind-rises.github.io/posts/43034.html"/>
+    <id>https://thewind-rises.github.io/posts/43034.html</id>
+    <published>2020-09-26T06:47:03.000Z</published>
+    <updated>2021-03-29T12:23:26.955Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;此篇为之前的博客搬运。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;好久没发文了，今天来除除草。&lt;/p&gt;
+&lt;p&gt;我想大家都被那些购物广告还有网页弹窗烦死了吧。那种开电脑就给你弹很多的什么每日新闻啦，今日头条啦，&lt;code&gt;系兄弟就来刚我啦&lt;/code&gt;，以及某360的开机广告……真是一点营养都</summary>
+        
+      
+    
+    
+    
+    
+    <category term="杂物" scheme="https://thewind-rises.github.io/tags/%E6%9D%82%E7%89%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DVWA解决Illegal mix of collations for operation  &#39;UNION&#39;问题</title>
+    <link href="https://thewind-rises.github.io/posts/54858.html"/>
+    <id>https://thewind-rises.github.io/posts/54858.html</id>
+    <published>2020-09-26T03:30:21.000Z</published>
+    <updated>2021-04-06T02:27:05.028Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Keywords：DVWA,Illegal mix of collations for operation ‘UNION’&lt;/p&gt;
+&lt;p&gt;今天同学在做作业的时候遇到了这个问题过来请教我。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term="DVWA,MySQL排序编码" scheme="https://thewind-rises.github.io/tags/DVWA-MySQL%E6%8E%92%E5%BA%8F%E7%BC%96%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HEXO+GitHubpage+部署优化过程记录</title>
+    <link href="https://thewind-rises.github.io/posts/5921.html"/>
+    <id>https://thewind-rises.github.io/posts/5921.html</id>
+    <published>2020-09-25T10:27:09.000Z</published>
+    <updated>2021-03-29T12:23:26.935Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;img src=&quot;https://fishbed.easy233.top/image-20200925204020538.png&quot;/&gt;
+
+&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Blog部署优化" scheme="https://thewind-rises.github.io/tags/Blog%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+</feed>

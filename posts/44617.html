@@ -1,0 +1,1250 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="从爬图虫入手学习多线程（原理分析）, 丿卟离丶的博客">
+    <meta name="description" content="Web安全,知识共享,学习">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>从爬图虫入手学习多线程（原理分析） | 丿卟离丶的博客</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/css/my.css">
+
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="丿卟离丶的博客" type="application/atom+xml">
+</head>
+
+
+
+   <style>
+    body{
+       background-image: url(https://fishbed.easy233.top/63373510_p0_master1200.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">丿卟离丶的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">丿卟离丶的博客</div>
+        <div class="logo-desc">
+            
+            Web安全,知识共享,学习
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://fishbed.easy233.top/timg.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">从爬图虫入手学习多线程（原理分析）</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                <span class="chip bg-color">Python,多线程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-10-09
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-03-29
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    18 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>学Python不写爬虫和咸鱼有什么区别！！！！by：Noob_宅</p>
+</blockquote>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/timg.jpg" alt="人生苦短，我用Python"></p>
+<p>阅读此篇文章需具备的知识基础：Python基础（最少要学习过基础教程，能读懂代码），入门级的数据结构基础（知道队列的概念即可）。最好学过C语言，了解一些CPU的工作原理。</p>
+<p>当然，如果后三者不太了解的话也不是不行，我会尽量在文中以简明易懂的方式解释，了解的可以跳过解释部分。</p>
+<h2 id="一．前言"><a href="#一．前言" class="headerlink" title="一．前言"></a>一．前言</h2><p>之前曾经拿别人的脚本学习了一下网络爬图虫怎么写，但是写好后运行起来一直嫌慢。这两天正巧有空学了一下Python多线程，感觉Python的多线程特别适合爬虫这种IO密集型的操作。</p>
+<p>所谓的IO就是input和output，输入和输出。或者称为读写，总之就是对数据流的操作。</p>
+<p>（这里我们摘取廖雪峰老师的教程中的一段来解释一下IO密集型和计算密集型：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017631469467456">https://www.liaoxuefeng.com/wiki/1016959663602400/1017631469467456</a></p>
+<p>计算密集型 vs. IO密集型</p>
+<p>是否采用多任务的第二个考虑是任务的类型。我们可以把任务分为计算密集型和IO密集型。</p>
+<p>计算密集型任务的特点是要进行大量的计算，消耗CPU资源，比如计算圆周率、对视频进行高清解码等等，全靠CPU的运算能力。这种计算密集型任务虽然也可以用多任务完成，但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低，所以，要最高效地利用CPU，计算密集型任务同时进行的数量应当等于CPU的核心数。</p>
+<p>计算密集型任务由于主要消耗CPU资源，因此，代码运行效率至关重要。Python这样的脚本语言运行效率很低，完全不适合计算密集型任务。对于计算密集型任务，最好用C语言编写。</p>
+<p>第二种任务的类型是IO密集型，涉及到网络、磁盘IO的任务都是IO密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成（因为IO的速度远远低于CPU和内存的速度）。对于IO密集型任务，任务越多，CPU效率越高，但也有一个限度。常见的大部分任务都是IO密集型任务，比如Web应用。</p>
+<p>IO密集型任务执行期间，99%的时间都花在IO上，花在CPU上的时间很少，因此，用运行速度极快的C语言替换用Python这样运行速度极低的脚本语言，完全无法提升运行效率。对于IO密集型任务，最合适的语言就是开发效率最高（代码量最少）的语言，脚本语言是首选，C语言最差。）</p>
+</blockquote>
+<p>看完这个应该就能很好地理解为什么爬虫适合多线程了，这里一定要清楚记得IO密集型的特性，后文会多次提到。</p>
+<h2 id="二．学习多线程（基于threading库）"><a href="#二．学习多线程（基于threading库）" class="headerlink" title="二．学习多线程（基于threading库）"></a>二．学习多线程（基于threading库）</h2><p>当时我学习多线程其实主要是从视频上学习基础知识的，之后又看了很多博客，结合我对计算机硬件和系统的一些粗浅了解，我也写出了自己的一些见解，可能讲的不深。</p>
+<p>我当时看的视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av16944429">https://www.bilibili.com/video/av16944429</a></p>
+<p>没错，就是哔哩哔哩。这充分说明了B站是学习的地方（手动滑稽）。个人感觉讲的挺好的，值得一看。</p>
+<p>这里我们就以视频中代码为例来慢慢展示多线程。</p>
+<h3 id="1-创建线程，线程监控和join-方法"><a href="#1-创建线程，线程监控和join-方法" class="headerlink" title="1.  创建线程，线程监控和join()方法"></a>1.  创建线程，线程监控和join()方法</h3><p>First.py</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image004.jpg" alt="First.py"></p>
+<p>PEP8规范不是没道理的，的确看着舒服很多。</p>
+<p>这段代码里主要使用了如下方法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 创建线程，主要参数target（用于指定子线程工作的位置，不能为空）;name（用于指定线程的名称，可以为空）;args（用于向线程工作的地方，也就是target处传递参数，可以为空）。</span>
+
+thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 启动线程，就像是发动汽车的引擎一样，必须有的步骤。</span>
+
+threading<span class="token punctuation">.</span>active_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 激活的线程数</span>
+
+threading<span class="token punctuation">.</span><span class="token builtin">enumerate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 查看激活的线程名</span>
+
+threading<span class="token punctuation">.</span>current_thread<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 查看当前正在运行线程（同时显示了线程名）</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image006.jpg" alt="运行结果"></p>
+<p>这里也贴上运行的结果进行对照，可以很明确的看出各项参数对应的信息。</p>
+<p>实际上，在我后来编写爬虫脚本的时候最经常用到的方法为<code>current_thread()</code>，至于原因……自己编写一个脚本就知道啦（其实主要就是为了debug和测试）。</p>
+<p>接下来就是一个重点啦：<code>join()</code>方法</p>
+<p>简单来讲<code>Join()</code>方法是用来判断<strong>指定线程</strong>是否执行完毕的，如果执行完毕的话，代码才会继续向下执行，否则就一直维持执行。为什么我们说是指定线程呢？？？</p>
+<p>观察代码不难发现，<code>added_thread.join()</code>，对应的就是我们创建的<code>T1线程</code>。或者更简单点<code>added_thread线程</code>，以后我们会创建更多的线程，<strong>join()前面是谁，那么就判断谁</strong>。这点也要着重记忆一下，以后会很有用。</p>
+<p>还记得那张代码的运行结果吗？？？这里我们将<code>added_thread.join()</code>句注释掉，再运行这个脚本，猜猜会发生什么？？？这里可以先自己想一想，分析一下再往下看。</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image008.jpg" alt="运行结果"></p>
+<p>乍看一下两张图没什么区别，但是仔细观察的话发现注释掉<code>join()</code>语句之后，程序先打印了<strong>all done</strong>，之后才是<strong>T1 finished</strong>。这里就说明了join()语句的重要作用，如果执行一个程序需要把子线程的数据返回给主线程执行的话，join()语句就是必不可少的啦。</p>
+<p>其实仔细想想还能发现一个问题：<strong>Python的线程有主线程和子线程，但是两者是分开工作的互不影响，主线程执行完毕并不会使子线程停止。</strong>想通这点的话，就能慢慢接触到Python多线程的本质了，并且以后的编程中也会经常遇到这个问题。</p>
+<p>至此就粗浅的讲解了一下多线程的基础方法，我们再来做一下回顾。</p>
+<p>Python的线程有主线程和子线程，但是两者是分开工作的互不影响，主线程执行完毕并不会使子线程停止。所以说需要使用join()方法来判断线程是否结束，只有结束后才会继续向下运行。如果需要保证所有都运行完毕的话可以设置一个线程调度器。</p>
+<p>至于什么是线程调度器，下一章会讲。</p>
+<h3 id="2-queue队列和线程调度器"><a href="#2-queue队列和线程调度器" class="headerlink" title="2.  queue队列和线程调度器"></a>2.  queue队列和线程调度器</h3><p>Second.py</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image010.jpg" alt="Second.py"></p>
+<p>写多线程其实会经常遇到需要子线程向主线程返回结果的情况，但是线程是没有返回值的，如果使用全局变量又会引出很多问题并且不适合代码量较多的情况，这时候队列就能派上用场了。</p>
+<p>使用队列需要引入<code>queue库</code>，在这里我们只简单的讲解一下queue的几个主要方法（实际上原因是我本人对这个也不是太理解，数据结构苦手啊QAQ）。想更多了解的话可以看看网上的各种博客还有教学视频。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">queue<span class="token punctuation">.</span>Queue<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 创建队列，特点：先入先出（解释：可以理解为一条流水线，先进入的零件会先被组装好之后输出）</span>
+
+<span class="token comment"># 在这里我们以q代指这个队列（或者说q这个对象已经是一个队列了）</span>
+
+q<span class="token punctuation">.</span>put<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 将数据存入队列中</span>
+
+q<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 将数据从队列中取出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>（PS：好丢人啊，感觉写了不如不写）</p>
+</blockquote>
+<p>接下来就是另一个重点了，<strong>线程调度器</strong>。</p>
+<p>有的时候我们需要开辟多个线程，但是如果重复创建线程，启动线程，操作线程，监控线程无疑是效率很低的，但是如果有一个总领的调度器那就很简单了，很容易实现批量创建指定数目线程，并且对线程进行总体管理（暂时没有研究如何对单个线程进行管理，我一般采取的思路是在线程工作的地方对单个子线程进行管理）。</p>
+<p>以下是一个简单的创建四个子线程的线程调度器的代码：</p>
+  <pre class="line-numbers language-python" data-language="python"><code class="language-python">threads <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token comment"># args用于向分线程工作的地方传参，同时指定i的值，使线程在指定地方(即job)工作</span>
+t <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>job<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+threads<span class="token punctuation">.</span>append<span class="token punctuation">(</span>t<span class="token punctuation">)</span>
+<span class="token keyword">for</span> thread <span class="token keyword">in</span> threads<span class="token punctuation">:</span>
+thread<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 重点：所有线程运行结束后再向下运行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>虽然比较简单，但是这个实现了4个线程的批量创建和简单线程控制，我在写爬虫的时候也用到了这个调度器，还是直接复制粘贴的（所以说啊，存存代码是很有意义的）。</p>
+<p>我们来分析一下这个调度器，首先我们定义了一个threads列表用于储存线程（对象），之后创建并启动了四个线程，通过<code>for thread in threads</code>对每一个线程实现了join()方法进行控制。程序的运行结果如下：</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image012.jpg" alt="结果"></p>
+<p>最后的数据为程序运行所用时间。可以自己试着分析一下这个程序的结果。</p>
+<p>接下来我们进入下一章节。</p>
+<h3 id="3-真·伪多线程，快or慢"><a href="#3-真·伪多线程，快or慢" class="headerlink" title="3.  真·伪多线程，快or慢"></a>3.  真·伪多线程，快or慢</h3><p>可能初看这个标题会比较懵逼，但是这也就是我要讲的Python多线程的<strong>实质</strong>。</p>
+<p>初听多线程可能就是感觉程序会在多个线程上运行，从而让程序执行变快。如果你就是这么认为而且从代码的运行结果中也感觉出来了这一点，那么图样图森破，程序设计师的小伎俩又一次成功了。</p>
+<p>实际上Python的多线程是一种障眼法：程序本质上还只是运行在CPU的一个线程上，但是程序通过不停地在多个线程中进行切换，同时切换的速度很快，从而造成了一种多线程的假象。实际上程序还是同时只运行一个线程。</p>
+<p>这也就引出了一个问题：多线程其实有的时候不是那么的有效率，甚至还不如单线程。可能这时候你就想直接左上角或者右上角了。但是别急，回忆一下前言提到的计算密集型和IO密集型的概念，如果忘了的话再回去看个两三次。</p>
+<p>是不是意识到了什么？？？？</p>
+<p>毫无疑问，最适合Python多线程的地方其实是IO密集型的操作。</p>
+<p>如果还不理解什么是IO密集型的话那我就举个栗子。</p>
+<blockquote>
+<p>—————————栗子的分割线—————————————-</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image014.gif" alt="假栗子"></p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image016.gif" alt="爪巴"></p>
+<p>拿错了……</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image018.gif" alt="真栗子"></p>
+<p>比如说你（CPU）和别人聊天，但是和你聊天的人并不会你说一句他就立刻回一句（除非你本人是个妹子而对面是一只单身狗，或者是你基（姬）友），但是你一次只能做一件事（CPU线程是唯一的）。这时候你有两个选择：一直拿着手机或者电脑等待对方发信息（线程一直在处理但是CPU在等待），或者回复完对方的信息之后就直接去干别的事，等到出现消息提示音再回来看信息（将CPU释放处理其他工作）。</p>
+<p>—————————-栗子的分割线————————————-</p>
+</blockquote>
+<p>可能我比较笨，让你看的更晕了，那么接下来我还是引用廖老师的原句来解释一下这个问题吧。</p>
+<blockquote>
+<p>———————————–专业的分割线——————————-</p>
+<p>这类任务（IO密集）的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成（因为IO的速度远远低于CPU和内存的速度）。</p>
+<blockquote>
+<p>好了，总算解释完了IO密集型的问题。那就继续吧，接下来我们来说一下为什么多线程的效率有时候不如单线程。</p>
+</blockquote>
+<blockquote>
+<p>接下来还是廖老师的原句，先体会一下。</p>
+</blockquote>
+<p>线程切换</p>
+<p>无论是多进程还是多线程，只要数量一多，效率肯定上不去，为什么呢？</p>
+<p>我们打个比方，假设你不幸正在准备中考，每天晚上需要做语文、数学、英语、物理、化学这5科的作业，每项作业耗时1小时。</p>
+<p>如果你先花1小时做语文作业，做完了，再花1小时做数学作业，这样，依次全部做完，一共花5小时，这种方式称为单任务模型，或者批处理任务模型。</p>
+<p>假设你打算切换到多任务模型，可以先做1分钟语文，再切换到数学作业，做1分钟，再切换到英语，以此类推，只要切换速度足够快，这种方式就和单核CPU执行多任务是一样的了，以幼儿园小朋友的眼光来看，你就正在同时写5科作业。</p>
+<p>但是，切换作业是有代价的，比如从语文切到数学，要先收拾桌子上的语文书本、钢笔（这叫保存现场），然后，打开数学课本、找出圆规直尺（这叫准备新环境），才能开始做数学作业。操作系统在切换进程或者线程时也是一样的，它需要先保存当前执行的现场环境（CPU寄存器状态、内存页等），然后，把新任务的执行环境准备好（恢复上次的寄存器状态，切换内存页等），才能开始执行。这个切换过程虽然很快，但是也需要耗费时间。如果有几千个任务同时进行，操作系统可能就主要忙着切换任务，根本没有多少时间去执行任务了，这种情况最常见的就是硬盘狂响，点窗口无反应，系统处于假死状态。</p>
+<p>所以，多任务一旦多到一个限度，就会消耗掉系统所有的资源，结果效率急剧下降，所有任务都做不好。</p>
+<p>—————————–专业与非专业的分割线——————————</p>
+</blockquote>
+<p>实际上线程切换还和一个东西密切相关：GIL（全局解析器锁）</p>
+<p>那么什么是全局解析器锁呢？这里我引用一个博客，写的很不错，很好的分析了并行和并发，以及Python多线程的切换问题。</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41594007/article/details/79485847">https://blog.csdn.net/weixin_41594007/article/details/79485847</a></p>
+<p>GIL即全局解释器锁（global interpreter lock），每个线程在执行时候都需要先获取GIL，保证同一时刻只有一个线程可以执行代码，即<strong>同一时刻只有一个线程使用CPU</strong>，也就是说多线程并不是真正意义上的同时执行。</p>
+<p>但是加锁也是有代价的，都需要CPU进行操作，所以说一定程度上会拖慢程序运行的时间，但总归上是利大于弊的。</p>
+<p>这里我也总结一下：进程（线程）切换这个问题实际上就关乎多线程（进程）和单线程效率的判断，总有一个最适区间。通过我自己编写其它测试脚本发现，即使是CPU计算密集型，如果跑的数据够大够多，那么多进程的效率要远高于多线程（这个数据和核心数目有关系），同时多线程和单线程差距又不大，但是多线程仍旧比单线程慢，这说明多进程还是强（可能有点题外话了，在之后的文章里应该会讲，如果我不咕咕咕的话）。</p>
+<p>更多关于速度问题的探讨可以参考这篇博客:<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011519550/article/details/89857063">https://blog.csdn.net/u011519550/article/details/89857063</a></p>
+<h3 id="4-GIL原理的初步探究"><a href="#4-GIL原理的初步探究" class="headerlink" title="4.  GIL原理的初步探究"></a>4.  GIL原理的初步探究</h3><p>Fourth.py</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image020.jpg" alt="Fourth.py"></p>
+<p>这个脚本就是为了探讨GIL的问题：GIL的切换方式，或者说切换条件。</p>
+<p>运行后可以观察到：脚本每次运行，总有两三个线程的启动和结束顺序不一样。这也和GIL的释放锁特性有关：在IO操作等可能会引起阻塞的system call之前,可以暂时释放GIL,但在执行完毕后,必须重新获取GIL 。Python 3.x使用计时器（执行时间达到阈值后，当前线程释放GIL），而Python 2.x，则是tickets计数达到100。</p>
+<p>在多线程爬虫脚本的编写过程中我也被这个问题困扰了很久，因为不知道线程在切换的时候，网络IO是否还在继续运行。所以我在爬虫脚本里下载图片的地方前后各添加了一个判断当前线程的函数。</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image022.jpg" alt="添加函数"></p>
+<p>最后程序运行的结果也是让我大吃一惊</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image024.jpg" alt="线程不同"></p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image026.jpg" alt="线程相同"></p>
+<p>下载图片的线程和写入图片的线程有时候居然是不一样的，根据原理分析的话答案可能就是：如果下载图片的时间超过一个固定阈值，那么GIL就会释放当前线程，让下一个线程接手上一个线程的任务（真实接盘侠），此时上一个线程去执行其它任务。大体上只从结果分析就是这样，如果真的想要完全知道，那就只能去读一读方法源码了，以后会读一下的，不然也没无从谈起学会了Python。</p>
+<p>越是研究就越是为语言编写者的智慧所折服，这玩意真的是一个圣诞节假期就能搞出来的东西吗？？？Guido van Rossum（吉多·范罗苏姆）是外星人吧。</p>
+<p>无力吐槽。不过还是想吐槽一下切换方式。一个渣男追一个妹子，追到一定时间就放弃这个妹子去找下一个，然后还有人去接盘，真实的窒息。理科男流下了单身狗的泪水。</p>
+<h3 id="5-LOCK-线程锁"><a href="#5-LOCK-线程锁" class="headerlink" title="5.  LOCK 线程锁"></a>5.  LOCK 线程锁</h3><p>别问我为什么这个脚本叫做Third.py，我现在也很迷QAQ</p>
+<p><img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/clip_image028.jpg" alt="Third.py"></p>
+<p>这一个脚本就是为了解释Python多线程中锁的作用。</p>
+<p>如果你需要多个线程来处理一个数据，或者上个线程的结果要作为下一个线程的输入，那么加一把锁就是很重要的了。（多线程模式下用这个运算数据纯属脱裤子放屁，有时候直接单线程更好其实）</p>
+<p>还是讲一下关于锁的部分的各种方法吧：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">threading<span class="token punctuation">.</span>Lock<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 创建一个锁，注意threading小写，Lock首字母大写</span>
+
+threading<span class="token punctuation">.</span>Lock<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 为线程加上锁，表示这个线程不能继续使用，需要等待工作完成</span>
+
+threading<span class="token punctuation">.</span>Lock<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 释放锁，表示任务已完成，可以继续切换线程</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>实际在运用过程中，锁是一个很有意思的东西。</p>
+<p>在IO情况下，如果是磁盘IO那就必须加锁，除非你指定文件句柄（指定句柄一般用于多个线程向一个文件内写入数据，相当厉害的操作）。如果是网络IO那就可以不加锁（至少在下载图片看来是这样，这个在我的脚本里也有体现）。</p>
+<p>关于锁其实还有很多要研究，但是我目前只遇到了磁盘IO和网络IO的情况，所以这方面的研究就少了一点，以后补上吧。</p>
+<h3 id="6-代码包"><a href="#6-代码包" class="headerlink" title="6.  代码包"></a>6.  代码包</h3><p>上述所有的代码我都已经打包好了，有需要的话可以自己download下来自己运行一下，全都是基于Python3.7进行编译。</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1dRAFNN1047PUBKty-esXMw">https://pan.baidu.com/s/1dRAFNN1047PUBKty-esXMw</a></p>
+<p>提取码：txsn </p>
+<p>至此我们就完成了编写多线程脚本的知识储备，希望你能自己对着代码敲一敲，自己也研究一下，可能就会发现很多有意思的东西。当然我本人也是正在学习的过程中，可能文章里面有些地方会有纰漏。如果有发现这样的错误可以联系我，邮箱地址是：<a href="mailto:&#56;&#57;&#x32;&#x31;&#x37;&#53;&#55;&#x33;&#x36;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;">&#56;&#57;&#x32;&#x31;&#x37;&#53;&#55;&#x33;&#x36;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;</a>，前面就是QQ号，想共同探讨也可以加我QQ，但请写好备注。</p>
+<p>接下来我就会拿爬虫脚本来进行分析了，有兴趣的可以继续看看。</p>
+<p>感谢我的学长和同学在我写这篇文章的过程中对我的帮助，给我提供了很多宝贵的意见。</p>
+<p>此文章为之前的搬运，创作日期为2019.05.不知道多少号。（XD）</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">丿卟离丶</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://thewind-rises.github.io/posts/44617.html">https://thewind-rises.github.io/posts/44617.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">丿卟离丶</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                    <span class="chip bg-color">Python,多线程</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/posts/62062.html">
+                    <div class="card-image">
+                        
+                        <img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/timg.jpg" class="responsive-img" alt="从爬图虫入手学习多线程实战">
+                        
+                        <span class="card-title">从爬图虫入手学习多线程实战</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-13
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            丿卟离丶
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">Python,多线程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/27423.html">
+                    <div class="card-image">
+                        
+                        <img src="/medias/loading.gif" data-original="https://fishbed.easy233.top/113210_HnfV_2353773.png" class="responsive-img" alt="Frp内网穿透">
+                        
+                        <span class="card-title">Frp内网穿透</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            丿卟离丶
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
+                        <span class="chip bg-color">内网穿透</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 丿卟离丶的博客<br />'
+            + '文章作者: 丿卟离丶<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2022</span>
+            
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">丿卟离丶</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;胡言乱语字数:&nbsp;<span
+                class="white-color">30.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;杰哥访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "9";
+                    var startDate = "22";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已凑活运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已凑活运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Thewind-rises" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:892175736@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=892175736" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 892175736" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+	    <div style="position:fixed;bottom:125px;right:9px;cursor: pointer;">
+	        <a title="兔小巢" target="_blank" rel="noopener" href="https://support.qq.com/products/317426"><img src="/medias/loading.gif" data-original="/medias/contact.png"></a>
+	    </div>
+	
+    
+
+    
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/Thewind-rises/thewind-rises.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>
