@@ -8,7 +8,7 @@
       <link href="/posts/12335.html"/>
       <url>/posts/12335.html</url>
       
-        <content type="html"><![CDATA[<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>很可惜，Typora最终还是选择了收费，但是写软件本来就是可以恰钱的，这点实在是无可指摘。在试用了Marktext编辑器之后，发现其对于图片的处理十分的愚蠢，不能自定义图片大小（虽然MarkDown语法本身没有原生支持），不能设置图片名称，上传不能自定义参数全靠意念手搓，复制图片链接也不能快捷转化为MarkDown语法的链接。Atom编辑器之前也使用过，可以装一大堆插件确实很不错，但是对于系统资源的开销属实是有点大了，而且打开速度随着插件越来越多扁的越来越慢。</p><p>林林总总看了一圈，最后还是选择了Vscode。装上了对应的插件之后，也不是不能用，就是得之后调节成浅色主题，深色看起来也不酷，而且让人觉得很郁郁。<br><img src="https://fishbed.easy233.top/%E6%9B%B4%E6%8D%A2VsCode%E7%BC%96%E8%BE%91%E5%99%A8%E6%B5%8B%E8%AF%95/%E6%B5%8B%E8%AF%95.png" alt="测试样例">  </p>]]></content>
+        <content type="html"><![CDATA[<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>很可惜，Typora最终还是选择了收费，但是写软件本来就是可以恰钱的，这点实在是无可指摘。在试用了Marktext编辑器之后，发现其对于图片的处理十分的愚蠢，不能自定义图片大小（虽然MarkDown语法本身没有原生支持），不能设置图片名称，上传不能自定义参数全靠意念手搓，复制图片链接也不能快捷转化为MarkDown语法的链接。Atom编辑器之前也使用过，可以装一大堆插件确实很不错，但是对于系统资源的开销属实是有点大了，而且打开速度随着插件越来越多变的越来越慢。</p><p>林林总总看了一圈，最后还是选择了Vscode。装上了对应的插件之后，<del>也不是不能用</del>还挺好用的，就是得之后调节成浅色主题，深色看起来也不酷，而且让人觉得很郁郁。<br><img src="https://fishbed.easy233.top/%E6%9B%B4%E6%8D%A2VsCode%E7%BC%96%E8%BE%91%E5%99%A8%E6%B5%8B%E8%AF%95/%E6%B5%8B%E8%AF%95.png" alt="测试样例">  </p>]]></content>
       
       
       
