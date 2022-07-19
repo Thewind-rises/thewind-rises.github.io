@@ -6,7 +6,7 @@
   <link href="https://thewind-rises.github.io/atom.xml" rel="self"/>
   
   <link href="https://thewind-rises.github.io/"/>
-  <updated>2022-07-13T09:20:26.583Z</updated>
+  <updated>2022-07-19T09:41:23.259Z</updated>
   <id>https://thewind-rises.github.io/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>记一次差点提桶跑路</title>
+    <link href="https://thewind-rises.github.io/posts/29679.html"/>
+    <id>https://thewind-rises.github.io/posts/29679.html</id>
+    <published>2022-07-19T09:02:16.000Z</published>
+    <updated>2022-07-19T09:41:23.259Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;那天，头儿发来了一个表格，里面是梳理出来的公司资产。头说，你把里面的服务器密码都改一下，然后他就忙去了。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="运维,跑路" scheme="https://thewind-rises.github.io/tags/%E8%BF%90%E7%BB%B4-%E8%B7%91%E8%B7%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>iptables使用记录（害人不浅）</title>
     <link href="https://thewind-rises.github.io/posts/41482.html"/>
     <id>https://thewind-rises.github.io/posts/41482.html</id>
     <published>2022-07-13T09:15:58.000Z</published>
-    <updated>2022-07-13T09:20:26.583Z</updated>
+    <updated>2022-07-13T09:20:40.571Z</updated>
     
     
       
